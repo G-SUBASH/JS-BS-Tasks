@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 70%; 
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        
+        input.error, textarea.error {
+            border: 1px solid red;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+                <span class="error" id="nameError"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <span class="error" id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <label for="website">Website:</label>
+                <input type="text" id="website" name="website">
+                <span class="error" id="websiteError"></span>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message"></textarea>
+                <span class="error" id="messageError"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const inputs = {
+            name: document.getElementById('name'),
+            email: document.getElementById('email'),
+            website: document.getElementById('website'),
+            message: document.getElementById('message'),
+        };
+
+        form.addEventListener('submit', function (e) {
+            let isValid = true;
+
+            // Validate Name
+            if (inputs.name.value.trim() === '') {
+                setError(inputs.name, 'Name is required');
+                isValid = false;
+            } else {
+                clearError(inputs.name);
+            }
+
+            // Validate Email
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(inputs.email.value)) {
+                setError(inputs.email, 'Valid email address is required');
+                isValid = false;
+            } else {
+                clearError(inputs.email);
+            }
+
+            // Validate Website
+            const websitePattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}([\/a-zA-Z0-9_.-]*)*\/?$/;
+            if (!websitePattern.test(inputs.website.value)) {
+                setError(inputs.website, 'Valid URL is required');
+                isValid = false;
+            } else {
+                clearError(inputs.website);
+            }
+
+            // Validate Message
+            if (inputs.message.value.trim() === '') {
+                setError(inputs.message, 'Message is required');
+                isValid = false;
+            } else {
+                clearError(inputs.message);
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        // Helper function to set error messages and styles
+        function setError(input, errorMessage) {
+            input.classList.add('error');
+            const errorSpan = document.getElementById(`${input.id}Error`);
+            errorSpan.textContent = errorMessage;
+        }
+
+        // Helper function to clear error messages and styles
+        function clearError(input) {
+            input.classList.remove('error');
+            const errorSpan = document.getElementById(`${input.id}Error`);
+            errorSpan.textContent = '';
+        }
+    </script>
+</body>
+</html>

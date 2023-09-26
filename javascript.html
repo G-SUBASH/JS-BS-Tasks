@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var n,rem,rev=0;
+            n=parseInt(prompt("ENTER NUMBER :"));
+            document.write("Number is"+ n +"<br>"+"<br>");
+            while(n>0){
+                rem=n%10;
+                rev=rev*10+rem;
+                n=parseInt(n/10);
+            }
+            document.write("Reverse is"+ rev);
+        </script>
+    </body>
+</html>12345

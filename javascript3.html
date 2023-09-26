@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <form id="calculatorForm">
+        <label for="num1">Enter the first number:</label>
+        <input type="number" id="num1" name="num1" required><br><br>
+        
+        <label for="num2">Enter the second number:</label>
+        <input type="number" id="num2" name="num2" required><br><br>
+
+        <label>Select an operation:</label><br>
+        <button type="button" id="multiplyButton" onclick="setOperation('multiply')">Multiply</button>
+        <button type="button" id="divideButton" onclick="setOperation('divide')">Divide</button><br><br>
+
+        <input type="button" value="Calculate" onclick="calculate()">
+    </form>
+
+    <div id="results"></div>
+
+    <script type="text/javascript">
+        var selectedOperation = ""; // Variable to store the selected operation
+
+        // Function to set the selected operation
+        function setOperation(operation) {
+            selectedOperation = operation;
+        }
+
+        function calculate() {
+            // Get input values
+            var num1 = parseFloat(document.getElementById("num1").value);
+            var num2 = parseFloat(document.getElementById("num2").value);
+
+            if (!isNaN(num1) && !isNaN(num2) && selectedOperation !== "") {
+                if (selectedOperation === "multiply") {
+                    // Calculate multiplication
+                    var result = num1 * num2;
+                    document.getElementById("results").innerHTML = "Multiplication: " + num1 + " * " + num2 + " = " + result;
+                } else if (selectedOperation === "divide") {
+                    if (num2 === 0) {
+                        document.getElementById("results").innerHTML = "Division by zero is not allowed.";
+                        return;
+                    }
+                    // Calculate division
+                    var result = num1 / num2;
+                    document.getElementById("results").innerHTML = "Division: " + num1 + " / " + num2 + " = " + result;
+                }
+            } else {
+                // Handle invalid input or no selected operation
+                document.getElementById("results").innerHTML = "Invalid input or no operation selected.";
+            }
+        }
+    </script>
+</body>
+</html>
